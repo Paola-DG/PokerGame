@@ -39,20 +39,38 @@
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-38" value="Deal two cards to each player" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="374" y="301" width="80" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="22gZ5Fdk7y25cB7nW1cR-41" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="364" y="441" width="100" height="40" as="geometry" />
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="22gZ5Fdk7y25cB7nW1cR-41">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-101" value="YES" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="22gZ5Fdk7y25cB7nW1cR-97">
+          <mxGeometry x="0.5902" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-99" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="22gZ5Fdk7y25cB7nW1cR-41" target="22gZ5Fdk7y25cB7nW1cR-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-100" value="NO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="22gZ5Fdk7y25cB7nW1cR-99">
+          <mxGeometry x="0.1323" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-41" value="Has the player money" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=9;fontStyle=5" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="356" y="380" width="116" height="50" as="geometry" />
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-42" value="Main Menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="656" y="300" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-43" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="296" y="481" width="80" height="40" as="geometry" />
+          <mxGeometry x="296" y="450" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-44" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="572" y="481" width="80" height="40" as="geometry" />
+          <mxGeometry x="560" y="450" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-45" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="452" y="481" width="80" height="40" as="geometry" />
+          <mxGeometry x="448" y="450" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-49" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="512" y="561" width="80" height="40" as="geometry" />
@@ -141,6 +159,14 @@
         </mxCell>
         <mxCell id="22gZ5Fdk7y25cB7nW1cR-94" value="Deal hole cards" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontStyle=3" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="282" y="280" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-95" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="22gZ5Fdk7y25cB7nW1cR-38" target="22gZ5Fdk7y25cB7nW1cR-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22gZ5Fdk7y25cB7nW1cR-96" value="Player Actions" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="22gZ5Fdk7y25cB7nW1cR-95">
+          <mxGeometry x="-0.2552" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
