@@ -1,13 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h> //Use {system("clear");} to clear screen
 
-void showRules(void);
+//GLOBAL variables
+int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
+int userMainMenu; //variable that determines if the user want to go to the main menu (1).
+
+//function prototype
+int displayMainMenu(void); //function that display the main menu of the program.
+void showRules(void); //function that display the rules of the  Texas Hold’em - Poker Rules.
 
 int main(){
-    // variables
-    int userInput;
+    //local variables
     
-    // MAIN MENU
+    
+    // MAIN MENU window
+    displayMainMenu();
+    
+    while(userInput != 0 && userInput != 1 && userInput != 2){
+        printf("Invalid Input. Type again your response \n");
+        printf("Player Choice: "); //to-do: delete after input
+        scanf("%d", &userInput);
+    }
+    
+    if(userInput == 0){
+        // EXIT - Close the program
+        printf("EXIT PROGRAM");
+    }else if(userInput == 2){
+        // VIEW RULES
+        system("clear");
+        showRules(); //new window - Show Rules window.
+    }else{
+        // NEW GAME
+        system("clear");
+        printf("NEW GAME"); //new window - New Game window.
+    }
+    return 0;
+}
+
+//functions definition
+int displayMainMenu(void){
     printf("---------------------------\n");
     printf(" Start New Game || press 1 \n");
     printf("---------------------------\n");
@@ -19,31 +50,10 @@ int main(){
     printf("---------------------------\n");
     printf("\n");
     
-    printf("Player Choice: ");//delete after input
+    printf("Player Choice: ");//to-do: delete after input
     scanf("%d", &userInput);
-    
-    while(userInput != 0 && userInput != 1 && userInput != 2){
-        printf("Invalid Input. Type again your response \n");
-        printf("Player Choice: "); //delete after input
-        scanf("%d", &userInput);
-    }
-    
-    if(userInput == 0){
-        // EXIT
-        printf("EXIT PROGRAM");
-    }else if(userInput == 2){
-        // VIEW RULES
-        system("clear");
-        showRules(); //new window - Show Rules window
-    }else{
-        // NEW GAME
-        system("clear");
-        printf("NEW GAME"); //new window - New Game window
-    }
-    return 0;
 }
 
-// functions
 void showRules(void){
     printf("------------------------------------------------------------------------------------------\n");
     printf("                                    Texas Hold’em - Poker Rules \n");
@@ -117,4 +127,17 @@ void showRules(void){
     printf("        being the lowest \n");
     printf("\n");
     
+    //Go back to Main Menu.
+    printf("Do you want to return to Main Menu? || press 1: ");
+    scanf("%d", &userMainMenu);
+    
+    while(userMainMenu != 1){
+        printf("Do you want to return to Main Menu? || press 1: ");
+        scanf("%d", &userMainMenu);
+    }
+    
+    if(userMainMenu == 1){
+        system("clear");
+        main(); //Go back to main function.
+    }
 }
