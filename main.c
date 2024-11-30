@@ -24,7 +24,8 @@ int main(){
     
     if(userInput == 0){
         // EXIT - Close the program
-        printf("EXIT PROGRAM");
+        system("clear");
+        printf("Program Closed. Have a great day!");
     }else if(userInput == 2){
         // VIEW RULES
         system("clear");
@@ -39,6 +40,10 @@ int main(){
 
 //functions definition
 int displayMainMenu(void){
+    printf("------------------------------------------------------------------------------------------\n");
+    printf("                                     Texas Hold’em - Poker Game \n");
+    printf("------------------------------------------------------------------------------------------\n");
+    printf("\n");
     printf("---------------------------\n");
     printf(" Start New Game || press 1 \n");
     printf("---------------------------\n");
