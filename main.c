@@ -5,9 +5,13 @@
 int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
 int userMainMenu; //variable that determines if the user want to go to the main menu (1).
 
+float userChips; //variable that store the chips that the user has.
+int numRounds; //variable that stores the number of rounds that the user has played (before going to the main menu).
+
 //function prototype
-int displayMainMenu(void); //function that display the main menu of the program.
+void displayMainMenu(void); //function that display the main menu of the program.
 void showRules(void); //function that display the rules of the  Texas Hold’em - Poker Rules.
+void newGame(void); //function that display the poker game.
 
 int main(){
     //local variables
@@ -17,15 +21,15 @@ int main(){
     displayMainMenu();
     
     while(userInput != 0 && userInput != 1 && userInput != 2){
-        printf("Invalid Input. Type again your response \n");
-        printf("Player Choice: "); //to-do: delete after input
+        printf(" Invalid Input. Type again your response \n");
+        printf(" Player Choice: "); //to-do: delete after input
         scanf("%d", &userInput);
     }
     
     if(userInput == 0){
         // EXIT - Close the program
         system("clear");
-        printf("Program Closed. Have a great day!");
+        printf(" Program Closed. Have a great day!");
     }else if(userInput == 2){
         // VIEW RULES
         system("clear");
@@ -33,13 +37,13 @@ int main(){
     }else{
         // NEW GAME
         system("clear");
-        printf("NEW GAME"); //new window - New Game window.
+        newGame(); //new window - New Game window.
     }
     return 0;
 }
 
 //functions definition
-int displayMainMenu(void){
+void displayMainMenu(void){
     printf("------------------------------------------------------------------------------------------\n");
     printf("                                     Texas Hold’em - Poker Game \n");
     printf("------------------------------------------------------------------------------------------\n");
@@ -55,7 +59,7 @@ int displayMainMenu(void){
     printf("---------------------------\n");
     printf("\n");
     
-    printf("Player Choice: ");//to-do: delete after input
+    printf(" Player Choice: ");//to-do: delete after input
     scanf("%d", &userInput);
 }
 
@@ -65,11 +69,11 @@ void showRules(void){
     printf("------------------------------------------------------------------------------------------\n");
     printf("\n");
     
-    printf("GOAL \n");
+    printf(" GOAL \n");
     printf("    Win the pot, which is the total of all bets placed during the hand.\n");
     printf("\n");
     
-    printf("DEALING \n");
+    printf(" DEALING \n");
     printf("    Each player is dealt two cards face down, called [hole cards]. \n");
     printf("    The dealer then deals community cards face up in stages: \n");
     printf("        + The  flop: Three cards are dealt. \n");
@@ -77,19 +81,19 @@ void showRules(void){
     printf("        + The river: One final card is dealt. \n");
     
     printf("\n");
-    printf("BETTING \n");
+    printf(" BETTING \n");
     printf("    Players can check, call, raise, or fold. \n");
     printf("    The options available depend on what the previous players have done. \n");
     printf("        For example, if no one has bet yet, a player can check or bet. \n");
     printf("        If a player bets, others can call, raise, or fold. \n");
     printf("\n");
     
-    printf("WINNING \n");
+    printf(" WINNING \n");
     printf("    The player with the best hand at the end of the final betting round wins the pot. \n");
     printf("    If two players have the same hand, it's called a [split pot] or [tie]. \n");
     printf("\n");
     
-    printf("POKER HAND RANKINGS \n");
+    printf(" POKER HAND RANKINGS \n");
     printf("    1. Royal Flush \n");
     printf("        A Royal Flush is the best hand in poker and is made up of an ace, king, queen, \n");
     printf("        jack and ten of all the same suit. \n");
@@ -133,16 +137,50 @@ void showRules(void){
     printf("\n");
     
     //Go back to Main Menu.
-    printf("Do you want to return to Main Menu? || press 1: ");
+    printf(" Do you want to return to Main Menu? || press 1: ");
     scanf("%d", &userMainMenu);
     
     while(userMainMenu != 1){
-        printf("Do you want to return to Main Menu? || press 1: ");
+        printf(" Do you want to return to Main Menu? || press 1: ");
         scanf("%d", &userMainMenu);
     }
     
     if(userMainMenu == 1){
         system("clear");
         main(); //Go back to main function.
+    }
+}
+
+void newGame(void){
+    printf("------------------------------------------------------------------------------------------\n");
+    printf("                                     Texas Hold’em - Poker Game \n");
+    printf("------------------------------------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------------\n");
+    printf(" Blind Bet: $1 | Big Blind Bet: $2 | Minimum amount to play: $8    |\n");
+    printf("--------------------------------------------------------------------\n");
+
+    if(userChips == 0.000000){
+        // SETUP NEW GAME
+        numRounds++;
+        printf(" Enter the amount of money you want to gamble: $"); //initialize chips
+        scanf("%f", &userChips);
+        
+        while(userChips <= 0 || userChips < 8){
+            printf(" Invalid Input. Type again your response \n");
+            printf(" Enter the amount of money you want to gamble: $");
+            scanf("%f", &userChips);
+        }
+        
+        //shuffle cards
+        //assign blinds - first round, user has the dealer button
+    }else{
+        // SETUP NEXT ROUND
+        numRounds++;
+        printf("--------------------------------------------------------------------\n");
+        printf(" Welcome to Round %d | Wallet: $%f                            |\n", numRounds, userChips);
+        printf("--------------------------------------------------------------------\n");
+        
+        //shuffle cards
+        //assign blinds
     }
 }
