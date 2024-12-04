@@ -16,11 +16,12 @@ int bigBlindBet = BLINDBET * 2; //variable that stores the amount that the big b
 void displayMainMenu(void); //function that displays the main menu of the program.
 void showRules(void); //function that displays the rules of the  Texas Hold’em - Poker Rules.
 void newGame(void); //function that displays the poker game.
-void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets).
+void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets and wallet).
 
 int main(){
     //local variables
-    
+    userChips = 0.000000;
+    numRounds = 0;
     
     // MAIN MENU window
     displayMainMenu();
@@ -159,19 +160,16 @@ void newGame(void){
     //local variables
     int minToGamble = bigBlindBet * 4; //variable that stores the minimum amout the user needs to be able to gamble.
 
+    numRounds++;
     showHeader(1); //showing title and blind bets
 
     if(userChips != 0.000000){
        // SETUP NEXT ROUND
-        printf("--------------------------------------------------------------------\n");
-        printf(" Welcome to Round %d | Wallet: $%.2f \n", numRounds, userChips);
-        printf("--------------------------------------------------------------------\n");
-        
        if(userChips < minToGamble){
            printf(" You do not have enough money to keep playing. Go back to main menu to start a new game! \n");
            while(userMainMenu != 1){
-            printf(" Press 1 to return to Main Menu: ");
-            scanf("%d", &userMainMenu);
+                printf(" Press 1 to return to Main Menu: ");
+                scanf("%d", &userMainMenu);
             }
     
             if(userMainMenu == 1){
@@ -179,17 +177,15 @@ void newGame(void){
                 system("clear");
                 main(); //Go back to main function.
             }
-       }else{
-           numRounds++;
             
-        
+       }else{
             //shuffle cards
             //assign blinds
+            
        }
         
     }else{
         // SETUP NEW GAME
-        numRounds++;
         printf(" Enter the amount of money you want to gamble: $"); //initialize chips
         scanf("%f", &userChips);
         
@@ -198,6 +194,9 @@ void newGame(void){
             printf(" Enter the amount of money you want to gamble: $");
             scanf("%f", &userChips);
         }
+        
+        system("clear");
+        showHeader(1);
         
         //shuffle cards
         //assign blinds - first round, user has the dealer button
@@ -216,5 +215,10 @@ void showHeader(int newGame){
         printf("--------------------------------------------------------------------\n");
         printf(" Blind Bet: $%d | Big Blind Bet: $%d | Minimum amount to play: $%d  \n", BLINDBET, bigBlindBet, minToGamble);
         printf("--------------------------------------------------------------------\n");
+    
+        printf("--------------------------------------------------------------------\n");
+        printf(" Welcome to Round %d | Wallet: $%.2f \n", numRounds, userChips);
+        printf("--------------------------------------------------------------------\n");  
     }
+
 }
