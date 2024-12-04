@@ -1,17 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h> //Use {system("clear");} to clear screen
 
+//DEFINE variables
+#define BLINDBET 1
+
 //GLOBAL variables
 int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
 int userMainMenu; //variable that determines if the user want to go to the main menu (1).
 
-float userChips; //variable that store the chips that the user has.
+float userChips; //variable that stores the chips that the user has.
 int numRounds; //variable that stores the number of rounds that the user has played (before going to the main menu).
+int bigBlindBet = BLINDBET * 2; //variable that stores the amount that the big blind bet cost.
 
 //function prototype
-void displayMainMenu(void); //function that display the main menu of the program.
-void showRules(void); //function that display the rules of the  Texas Hold’em - Poker Rules.
-void newGame(void); //function that display the poker game.
+void displayMainMenu(void); //function that displays the main menu of the program.
+void showRules(void); //function that displays the rules of the  Texas Hold’em - Poker Rules.
+void newGame(void); //function that displays the poker game.
+void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets).
 
 int main(){
     //local variables
@@ -44,9 +49,7 @@ int main(){
 
 //functions definition
 void displayMainMenu(void){
-    printf("------------------------------------------------------------------------------------------\n");
-    printf("                                     Texas Hold’em - Poker Game \n");
-    printf("------------------------------------------------------------------------------------------\n");
+    showHeader(0); //showing title
     printf("\n");
     printf("---------------------------\n");
     printf(" Start New Game || press 1 \n");
@@ -146,26 +149,51 @@ void showRules(void){
     }
     
     if(userMainMenu == 1){
+        userMainMenu = 0;
         system("clear");
         main(); //Go back to main function.
     }
 }
 
 void newGame(void){
-    printf("------------------------------------------------------------------------------------------\n");
-    printf("                                     Texas Hold’em - Poker Game \n");
-    printf("------------------------------------------------------------------------------------------\n");
-    printf("--------------------------------------------------------------------\n");
-    printf(" Blind Bet: $1 | Big Blind Bet: $2 | Minimum amount to play: $8    |\n");
-    printf("--------------------------------------------------------------------\n");
+    //local variables
+    int minToGamble = bigBlindBet * 4; //variable that stores the minimum amout the user needs to be able to gamble.
 
-    if(userChips == 0.000000){
+    showHeader(1); //showing title and blind bets
+
+    if(userChips != 0.000000){
+       // SETUP NEXT ROUND
+        printf("--------------------------------------------------------------------\n");
+        printf(" Welcome to Round %d | Wallet: $%.2f \n", numRounds, userChips);
+        printf("--------------------------------------------------------------------\n");
+        
+       if(userChips < minToGamble){
+           printf(" You do not have enough money to keep playing. Go back to main menu to start a new game! \n");
+           while(userMainMenu != 1){
+            printf(" Press 1 to return to Main Menu: ");
+            scanf("%d", &userMainMenu);
+            }
+    
+            if(userMainMenu == 1){
+                userMainMenu = 0;
+                system("clear");
+                main(); //Go back to main function.
+            }
+       }else{
+           numRounds++;
+            
+        
+            //shuffle cards
+            //assign blinds
+       }
+        
+    }else{
         // SETUP NEW GAME
         numRounds++;
         printf(" Enter the amount of money you want to gamble: $"); //initialize chips
         scanf("%f", &userChips);
         
-        while(userChips <= 0 || userChips < 8){
+        while(userChips <= 0 || userChips < minToGamble){
             printf(" Invalid Input. Type again your response \n");
             printf(" Enter the amount of money you want to gamble: $");
             scanf("%f", &userChips);
@@ -173,14 +201,20 @@ void newGame(void){
         
         //shuffle cards
         //assign blinds - first round, user has the dealer button
-    }else{
-        // SETUP NEXT ROUND
-        numRounds++;
+    }
+}
+
+void showHeader(int newGame){
+    //local variables
+    int minToGamble = bigBlindBet * 4; //variable that stores the minimum amout the user needs to be able to gamble.
+
+    printf("------------------------------------------------------------------------------------------\n");
+    printf("                                     Texas Hold’em - Poker Game \n");
+    printf("------------------------------------------------------------------------------------------\n");
+    
+    if(newGame == 1){
         printf("--------------------------------------------------------------------\n");
-        printf(" Welcome to Round %d | Wallet: $%f                            |\n", numRounds, userChips);
+        printf(" Blind Bet: $%d | Big Blind Bet: $%d | Minimum amount to play: $%d  \n", BLINDBET, bigBlindBet, minToGamble);
         printf("--------------------------------------------------------------------\n");
-        
-        //shuffle cards
-        //assign blinds
     }
 }
