@@ -1,8 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h> //Use {system("clear");} to clear screen
+#include <string.h>
+#include <time.h>
+#include <stdlib.h> //Use {system("clear");} to clear screen.
 
 //DEFINE variables
-#define BLINDBET 1
+#define BLIND_BET 1
+#define DECK_SIZE 52
+
+//STRUCT data types
+typedef struct{
+    int face;
+    int suit;
+}Card; //e.g. two hearts.
+
+typedef struct{
+    Card cards[5];
+}Hand; //e.g. User's Cards[two hearts, queen spades] + Table Cards[six diamonds, seven clubs, four spades].
+
+typedef struct{
+    Card deckCards[DECK_SIZE];
+    int numCardsDealt;
+}Deck;
 
 //GLOBAL variables
 int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
@@ -10,13 +28,24 @@ int userMainMenu; //variable that determines if the user want to go to the main 
 
 float userChips; //variable that stores the chips that the user has.
 int numRounds; //variable that stores the number of rounds that the user has played (before going to the main menu).
-int bigBlindBet = BLINDBET * 2; //variable that stores the amount that the big blind bet cost.
+int bigBlindBet = BLIND_BET * 2; //variable that stores the amount that the big blind bet cost.
+
+
+struct Hand handUser, handBot1, handBot2; //variables that store the hand(cards) that each user/bot has.
+struct Deck deck; //variable that stores the 52 cards of the set.
+
+char *faceStrings[] = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
+char *suitStrings[] = {"Hearts", "Diamonds", "Clubs", "Spades"};
+char *rankStrings[] = {"Royal Flush", "Straight Flsuh", "Four-of-a-Kind", "Full House", "Flush", "Straight", "Three-of-a-Kind", "Two Pair", "One Pair", "High Card"};
 
 //function prototype
 void displayMainMenu(void); //function that displays the main menu of the program.
 void showRules(void); //function that displays the rules of the  Texas Hold’em - Poker Rules.
 void newGame(void); //function that displays the poker game.
 void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets and wallet).
+
+void generateHands(void); //function that give to the players 2 cards (alternating giving).
+struct Card dealCard(); //
 
 int main(){
     //local variables
@@ -156,6 +185,18 @@ void showRules(void){
     }
 }
 
+struct Card dealCard(){
+    
+}
+
+void generateHands(void){
+    for(int i = 0; i < 2; i++){
+        handUser.cards[i] = dealCard();
+        handBot1.cards[i] = dealCard();
+        handBot2.cards[i] = dealCard();
+    }
+}
+
 void newGame(void){
     //local variables
     int minToGamble = bigBlindBet * 4; //variable that stores the minimum amout the user needs to be able to gamble.
@@ -213,7 +254,7 @@ void showHeader(int newGame){
     
     if(newGame == 1){
         printf("--------------------------------------------------------------------\n");
-        printf(" Blind Bet: $%d | Big Blind Bet: $%d | Minimum amount to play: $%d  \n", BLINDBET, bigBlindBet, minToGamble);
+        printf(" Blind Bet: $%d | Big Blind Bet: $%d | Minimum amount to play: $%d  \n", BLIND_BET, bigBlindBet, minToGamble);
         printf("--------------------------------------------------------------------\n");
     
         printf("--------------------------------------------------------------------\n");
@@ -222,3 +263,4 @@ void showHeader(int newGame){
     }
 
 }
+
