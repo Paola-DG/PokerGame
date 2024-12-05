@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "poker_game.h"
 
 const int COMBINED_CARDS_SIZE = PLAYER_HOLE_CARDS + COMMUNITY_CARDS;
@@ -245,12 +246,23 @@ void setup_table(Table *table, Dealer *dealer, Player players[TOTAL_PLAYERS]) {
     table->dealer = dealer;
     table->players = players;
     table->community_card_idx = 0;
+
+    table->pot = 0;
+    table->small_blind = BIG_BLIND / 2;
+    table->big_blind = BIG_BLIND;
+
+    table->small_blind_idx = 0;
+    table->big_blind_idx = table->small_blind_idx + 1; // Big blind is 1 player more than small blind
 }
 
+void rotate_blinds(Table *table) {
+    table->small_blind_idx = (table->small_blind_idx + 1) % TOTAL_PLAYERS;
+    table->big_blind_idx = (table->small_blind_idx + 1) % TOTAL_PLAYERS;
+}
 
 void deal_hole_cards(Table *table) {
     const int DEAL_SIZE = 2;
-    Dealer *dealer = &(table->dealer);
+    Dealer *dealer = (table->dealer);
 
     for (int i = 0; i < TOTAL_PLAYERS; i++) {
         Player *curr_player = &(table->players[i]);
@@ -284,7 +296,7 @@ Player* decide_winner(Table *table) {
     for (int i = 0; i < TOTAL_PLAYERS; i++) {
         // Combine community table cards + curr player cards into one array to simplify
         Card combined_cards[COMBINED_CARDS_SIZE];
-        combine_cards(table->players[i].cards, table->community_cards, combine_cards);
+        combine_cards(table->players[i].cards, table->community_cards, combined_cards);
 
         // Check for winning hand
         if (is_royal_flush(combined_cards)) {

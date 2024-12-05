@@ -6,6 +6,7 @@
 #define PLAYER_HOLE_CARDS 2
 #define TOTAL_PLAYERS 4
 #define COMMUNITY_CARDS 5
+#define BIG_BLIND 10
 
 enum HandRanks {
     ROYAL_FLUSH = 0,
@@ -25,6 +26,9 @@ typedef struct {
     int player_number;
     int chips;
     Card cards[PLAYER_HOLE_CARDS];
+
+    int current_bet;        // Current bet for the round
+    int folded;             // if player has folded from match
 } Player;
 
 // TODO: define dealer struct
@@ -40,10 +44,16 @@ typedef struct {
     Player *players;
     Card community_cards[COMMUNITY_CARDS];
     int community_card_idx;
+
+    int pot;                // Total pot for match
+    int current_bet;        // Current round's bet that players must match
+    int small_blind;        
+    int big_blind;
+    int small_blind_idx;    // idx of the small blind player
+    int big_blind_idx;      // idx of the big blind player
 } Table;
 
 
-// void play_round(Table *table);
 
 /**
  * Receives player array. Function does not check if array is initialized so must check before.
@@ -62,6 +72,12 @@ void setup_dealer(Dealer *dealer, Card deck[DECK_SIZE]);
  * Will initialize a table with the received dealer and players
  */
 void setup_table(Table *table, Dealer *dealer, Player players[TOTAL_PLAYERS]);
+
+/**
+ * Receives pointer to table
+ * Function will rotate small and big blind to the next player
+ */
+void rotate_blinds(Table *table);
 
 /**
  * Receives pointer to table
