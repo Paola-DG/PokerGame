@@ -3,24 +3,11 @@
 #include <time.h>
 #include <stdlib.h> //Use {system("clear");} to clear screen.
 
+#include "poker_game.h"
+
 //DEFINE variables
 #define BLIND_BET 1
-#define DECK_SIZE 52
-
-//STRUCT data types
-typedef struct{
-    int face;
-    int suit;
-}Card; //e.g. two hearts.
-
-typedef struct{
-    Card cards[5];
-}Hand; //e.g. User's Cards[two hearts, queen spades] + Table Cards[six diamonds, seven clubs, four spades].
-
-typedef struct{
-    Card deckCards[DECK_SIZE];
-    int numCardsDealt;
-}Deck;
+#define PLAYER_IDX 1
 
 //GLOBAL variables
 int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
@@ -30,13 +17,10 @@ float userChips; //variable that stores the chips that the user has.
 int numRounds; //variable that stores the number of rounds that the user has played (before going to the main menu).
 int bigBlindBet = BLIND_BET * 2; //variable that stores the amount that the big blind bet cost.
 
-
-struct Hand handUser, handBot1, handBot2; //variables that store the hand(cards) that each user/bot has.
-struct Deck deck; //variable that stores the 52 cards of the set.
-
-char *faceStrings[] = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
-char *suitStrings[] = {"Hearts", "Diamonds", "Clubs", "Spades"};
-char *rankStrings[] = {"Royal Flush", "Straight Flsuh", "Four-of-a-Kind", "Full House", "Flush", "Straight", "Three-of-a-Kind", "Two Pair", "One Pair", "High Card"};
+Player players[TOTAL_PLAYERS];
+Dealer dealer;
+Table table;
+Card deck[DECK_SIZE];
 
 //function prototype
 void displayMainMenu(void); //function that displays the main menu of the program.
@@ -44,8 +28,7 @@ void showRules(void); //function that displays the rules of the  Texas Hold’em
 void newGame(void); //function that displays the poker game.
 void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets and wallet).
 
-void generateHands(void); //function that give to the players 2 cards (alternating giving).
-struct Card dealCard(); //
+void preflop(Table *table);
 
 int main(){
     //local variables
@@ -185,22 +168,11 @@ void showRules(void){
     }
 }
 
-struct Card dealCard(){
-    
-}
-
-void generateHands(void){
-    for(int i = 0; i < 2; i++){
-        handUser.cards[i] = dealCard();
-        handBot1.cards[i] = dealCard();
-        handBot2.cards[i] = dealCard();
-    }
-}
-
 void newGame(void){
     //local variables
     int minToGamble = bigBlindBet * 4; //variable that stores the minimum amout the user needs to be able to gamble.
 
+    srand(time(NULL)); //initializes the rand() function, giving different cards.
     numRounds++;
     showHeader(1); //showing title and blind bets
 
@@ -221,7 +193,16 @@ void newGame(void){
             
        }else{
             //shuffle cards
-            //assign blinds
+            initialize_deck(deck);
+            shuffle_deck(deck);
+        
+            //assign blinds - first round, user has the dealer button
+            setup_players(players);
+            setup_dealer(&dealer, deck);
+            setup_table(&table, &dealer, players);
+        
+            //deal hole cards
+            preflop(&table);
             
        }
         
@@ -235,12 +216,32 @@ void newGame(void){
             printf(" Enter the amount of money you want to gamble: $");
             scanf("%f", &userChips);
         }
+    
+        //shuffle cards
+        initialize_deck(deck);
+        shuffle_deck(deck);
+        
+        //assign blinds - first round, user has the dealer button
+        setup_players(players);
+        setup_dealer(&dealer, deck);
+        setup_table(&table, &dealer, players);
         
         system("clear");
         showHeader(1);
         
-        //shuffle cards
-        //assign blinds - first round, user has the dealer button
+        //deal hole cards
+        preflop(&table);
+        
+        
+        
+    }
+}
+
+void preflop(Table *table){
+    deal_hole_cards(table);
+    printf("Your hole cards:\n");
+    for (int i = 0; i < 2; i++) {
+        print_card(table->players[PLAYER_IDX].cards[i]);
     }
 }
 
@@ -263,4 +264,3 @@ void showHeader(int newGame){
     }
 
 }
-
