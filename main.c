@@ -11,7 +11,9 @@
 
 //GLOBAL variables
 int userInput; //variable that determines if the user wants to start new game (1), view rules (2), or exit the program (0). 
-int userMainMenu; //variable that determines if the user want to go to the main menu (1).
+int userMainMenu; //variable that determines if the user wants to go to the main menu (1).
+int playerTurn; //variable that determines if the user wants to fold(0), call(1), or raise(2).
+char anotherRound; //varable that determines if the user wants to play another round (Y or N).
 
 float userChips; //variable that stores the chips that the user has.
 int numRounds; //variable that stores the number of rounds that the user has played (before going to the main menu).
@@ -26,7 +28,8 @@ Card deck[DECK_SIZE];
 void displayMainMenu(void); //function that displays the main menu of the program.
 void showRules(void); //function that displays the rules of the  Texas Hold’em - Poker Rules.
 void newGame(void); //function that displays the poker game.
-void showHeader(int newGame); //function that display the title (and if newGame = 1, will display the blind bets and wallet).
+void showHeader(int newGame); //function that displays the title (and if newGame = 1, will display the blind bets and wallet).
+void playerActions(void); //function that 
 
 void preflop(Table *table);
 
@@ -204,6 +207,9 @@ void newGame(void){
             //deal hole cards
             preflop(&table);
             
+            //pre-flop betting round
+            playerActions();
+            
        }
         
     }else{
@@ -232,6 +238,8 @@ void newGame(void){
         //deal hole cards
         preflop(&table);
         
+        //pre-flop betting round
+        playerActions();
         
         
     }
@@ -242,6 +250,52 @@ void preflop(Table *table){
     printf("Your hole cards:\n");
     for (int i = 0; i < 2; i++) {
         print_card(table->players[PLAYER_IDX].cards[i]);
+    }
+}
+
+void playerActions(void){
+    printf("\n");
+    printf("---------------------------\n");
+    printf(" Fold  || press 0 \n");
+    printf("---------------------------\n");
+    printf("---------------------------\n");
+    printf(" Call  || press 1 \n");
+    printf("---------------------------\n");
+    printf("---------------------------\n");
+    printf(" Raise || press 2 \n");
+    printf("---------------------------\n");
+    printf("\n");
+    
+    printf(" Player Choice: ");//to-do: delete after input
+    scanf("%d", &playerTurn);
+    
+    if(playerTurn != 0 && playerTurn != 1 && playerTurn != 2){
+        printf(" Invalid Input. Type again your response \n");
+        printf(" Player Choice: "); //to-do: delete after input
+        scanf("%d", &playerTurn);
+    }else if(playerTurn == 0){
+        printf(" End of the game. Wallet: %.2f \n", userChips);
+        printf(" Do you want to play another round? (Y/N): ");
+        scanf("%s", &anotherRound);
+        
+        while(anotherRound != 'Y' && anotherRound != 'y' && anotherRound != 'N' && anotherRound != 'n'){
+            printf(" Invalid Input. Type again your response \n");
+            printf(" Do you want to play another round? (Y/N): ");
+            scanf("%s", &anotherRound);
+        }
+        
+        if(anotherRound == 'Y' || anotherRound == 'y'){
+            system("clear");
+            newGame(); //Go back to newGame window.
+        }else{
+            system("clear");
+            main(); //Go back to Main window.
+        }
+        
+    }else if(playerTurn != 1){
+        printf(" CALL \n");
+    }else{
+        printf(" RAISE \n");
     }
 }
 
