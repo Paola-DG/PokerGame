@@ -1,6 +1,16 @@
 #ifndef POKER_GAME_H
 #define POKER_GAME_H
 
+#include <stdlib.h>
+
+// macro for clearing screen depending on os
+#ifdef _WIN32
+    #define CLEAR_SCREEN() system("cls")
+#else // linux/mac
+    #define CLEAR_SCREEN() system("clear")
+#endif
+
+
 #include "deck.h"
 
 #define PLAYER_HOLE_CARDS 2
@@ -53,7 +63,9 @@ typedef struct {
     int big_blind_idx;      // idx of the big blind player
 } Table;
 
+void display_main_menu();
 
+void show_rules();
 
 /**
  * Receives player array. Function does not check if array is initialized so must check before.
@@ -96,6 +108,6 @@ void deal_community_card(Table *table, int cards_to_deal);
  * Function will check for the best hand between all players
  * @returns pointer to winner player
  */
-Player* decide_winner(Table *table);
+int decide_winner(Table *table, Player *winners[], int player_best_hand_rank[]);
 
 #endif
