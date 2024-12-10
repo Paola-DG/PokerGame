@@ -326,6 +326,7 @@ void showdown(Table *table) {
 
 
 void start_game(void) {
+    int player_chips = 0, has_chips = 0;
     while (1) {
         Player players[TOTAL_PLAYERS];
         Dealer dealer;
@@ -333,16 +334,27 @@ void start_game(void) {
         Card deck[DECK_SIZE];
 
         setup_game(&table, &dealer, players, deck);
+
+        if (has_chips) {
+            players[PLAYER_IDX].chips = player_chips;
+        }
         preflop(&table);
         flop(&table);
         turn(&table);
         river(&table);
         showdown(&table);
 
+        int curr_chips = players[PLAYER_IDX].chips;
+        if ( curr_chips > 0) {
+            player_chips = curr_chips;
+            has_chips = 1;
+        }
+
         printf("Do you want to play another game? y/n: ");
         int input;
         do {
             input = getch();
+
         } while ( input != 'y' && input != 'n');
         
         if (input == 'n') {
