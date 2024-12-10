@@ -232,7 +232,10 @@ void preflop(Table *table) {
     Player *big_blind_player = &(table->players[table->big_blind_idx]);
 
     small_blind_player->current_bet = table->small_blind;
+    small_blind_player->chips -= small_blind_player->current_bet;
+
     big_blind_player->current_bet = table->big_blind;
+    big_blind_player->chips -= big_blind_player->current_bet;
 
     table->pot += table->small_blind + table->big_blind;
 
@@ -338,6 +341,7 @@ void start_game(void) {
         if (has_chips) {
             players[PLAYER_IDX].chips = player_chips;
         }
+
         preflop(&table);
         flop(&table);
         turn(&table);
