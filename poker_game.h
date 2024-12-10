@@ -2,6 +2,7 @@
 #define POKER_GAME_H
 
 #include <stdlib.h>
+#include "utils.h"
 
 // macro for clearing screen depending on os
 #ifdef _WIN32

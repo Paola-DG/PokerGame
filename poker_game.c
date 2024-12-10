@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "utils.h"
 #include "poker_game.h"
 
 const int COMBINED_CARDS_SIZE = PLAYER_HOLE_CARDS + COMMUNITY_CARDS;
@@ -370,6 +369,7 @@ void setup_players(Player players[TOTAL_PLAYERS]) {
 
         p.player_number = i;
         p.chips = 100;
+        p.current_bet = 0;
 
         players[i] = p;
     }

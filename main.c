@@ -65,7 +65,6 @@ void betting_round(Table *table, int player_index) {
 
         for (int i = 0; i < TOTAL_PLAYERS; i++) {
             Player *curr_player = &(table->players[i]);
-
             // Skip folded players
             if (curr_player->folded) {
                 continue;
@@ -327,15 +326,27 @@ void showdown(Table *table) {
 
 
 void start_game(void) {
-    Player players[TOTAL_PLAYERS];
-    Dealer dealer;
-    Table table;
-    Card deck[DECK_SIZE];
+    while (1) {
+        Player players[TOTAL_PLAYERS];
+        Dealer dealer;
+        Table table;
+        Card deck[DECK_SIZE];
 
-    setup_game(&table, &dealer, players, deck);
-    preflop(&table);
-    flop(&table);
-    turn(&table);
-    river(&table);
-    showdown(&table);
+        setup_game(&table, &dealer, players, deck);
+        preflop(&table);
+        flop(&table);
+        turn(&table);
+        river(&table);
+        showdown(&table);
+
+        printf("Do you want to play another game? y/n: ");
+        int input;
+        do {
+            input = getch();
+        } while ( input != 'y' && input != 'n');
+        
+        if (input == 'n') {
+            break;
+        }
+    }
 }
